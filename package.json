@@ -1,0 +1,22 @@
+{
+  "name": "stackit",
+  "version": "1.0.0",
+  "description": "Producer-Consumer pattern",
+  "type": "module",
+  "main": "producer.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "node-fetch": "^2.7.0",
+    "redis": "^5.8.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

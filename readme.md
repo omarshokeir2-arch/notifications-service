@@ -62,27 +62,54 @@ docker-compose up --scale consumer=2
 ```
 ---
 
+### With Minikube
+
+1. Start Minikube:
+
+```bash
+minikube start --driver=docker
+```
+
+2. Build and push producer and consumer images to Docker Hub (Already done): 
+```bash
+docker build -t omarshokeir/consumer:latest -f consumer/Dockerfile .
+docker push omarshokeir/consumer:latest
+
+docker build -t omarshokeir/producer:latest -f consumer/Dockerfile .
+docker push omarshokeir/producer:latest
+```
+
+3. Apply Kubernetes manifests:
+```bash
+kubectl apply -f redis-deployment.yaml
+kubectl apply -f producer-deployment.yaml
+kubectl apply -f consumer-deployment.yaml
+```
+
+4. Actively moniter consumer pods
+```bash
+kubectl get deployment consumer -w
+```
+
+---
+
 ## Testing
 
-### Using Jest
-
 ```bash
-npm install jest
-npm test
+kubectl delete pod debug
+kubectl run -it --rm debug --image=curlimages/curl --restart=Never -- /bin/sh
 ```
 
-### Using `curl` (Windows Command Line), for heavy workload testing
-
+### Heavy workload testing, for forcing a scale.
 ```bash
-curl -X POST http://localhost:3000/notifications -H "Content-Type: application/json" -d "{\"Type\":\"Warning\",\"isHeavy\":\"True\"}"
+curl http://producer:3000/notifications -H "Content-Type: application/json" -d '{"Type":"Warning","isHeavy":"True"}'
 ```
 
-### Using `curl` (Windows Command Line), to crash consumers for recovery testing
+### Crash consumers for recovery testing
 
 ```bash
-curl -X POST http://localhost:3000/notifications -H "Content-Type: application/json" -d "{\"Type\":\"Warning\",\"isCrashing\":\"True\"}"
+curl http://producer:3000/notifications -H "Content-Type: application/json" -d '{"Type":"Warning","isCrashing":"True"}'
 ```
-
 
 ---
 

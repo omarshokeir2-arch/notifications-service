@@ -1,15 +1,16 @@
-# Producer-Consumer Pattern
+# Producer-Consumer Pattern with Redis
 
-Similar to AWS SQS:
+Inspired by AWS SQS:
 ![SQS Diagram](https://miro.medium.com/v2/resize\:fit:720/format\:webp/1*rf8DwGuhXHrwhGhUnFNmxA.png)
 
-This project demonstrates a **Producer-Consumer pattern** with Redis:
+This project demonstrates a **Producer-Consumer pattern** using Redis:
 
 * **Multiple consumers** for load balancing and stress tolerance
+* Handles **heavy workloads** and **simulated crashes** to test resilience
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Without Docker
 
@@ -58,11 +59,11 @@ docker-compose up
 3. Optional: scale consumers
 
 ```bash
-docker-compose up --scale consumer=2
+docker-compose up --scale consumer=3
 ```
 ---
 
-## Testing
+## 🧪 Testing
 
 ### Using Jest
 
@@ -71,13 +72,15 @@ npm install jest
 npm test
 ```
 
-### Using `curl` (Windows Command Line), for heavy workload testing
+### Using `curl`
+
+#### Heavy workload:
 
 ```bash
 curl -X POST http://localhost:3000/notifications -H "Content-Type: application/json" -d "{\"Type\":\"Warning\",\"isHeavy\":\"True\"}"
 ```
 
-### Using `curl` (Windows Command Line), to crash consumers for recovery testing
+#### Simulate pod crash (Relevant when deployed in Kubernetes Cluster):
 
 ```bash
 curl -X POST http://localhost:3000/notifications -H "Content-Type: application/json" -d "{\"Type\":\"Warning\",\"isCrashing\":\"True\"}"
@@ -86,7 +89,7 @@ curl -X POST http://localhost:3000/notifications -H "Content-Type: application/j
 
 ---
 
-## References
+## 📚 References
 
 * [System Design Patterns: Producer-Consumer Pattern](https://dsysd-dev.medium.com/system-design-patterns-producer-consumer-pattern-1572f813329b)
 * [AWS SQS – What, Why, When](https://aws.plainenglish.io/aws-sqs-what-why-when-176e6027e5cc)

@@ -19,7 +19,7 @@ console.log(`Consumer started with ID: ${consumerId}`);
 async function consumeNotifications() {
     while (true) {
         // BLPOP blocks until an item is available
-        const result = await redisClient.blPop("notificationQueue", 0); 
+        const result = await redisClient.blPop("WarningQueue", 0); 
         if (result) {
             const notification = JSON.parse(result.element);
             current++;

@@ -10,7 +10,7 @@ async function sendNotification(id) {
   const body = {
     Type: "Warning",
     Name: `Backup Failure ${id}`,
-    Description: `Backup failed due to DB - ${id}`,
+    Description: `[blastTest] - ${id}`,
   };
 
   const res = await fetch(url, {

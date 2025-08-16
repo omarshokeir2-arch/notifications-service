@@ -34,7 +34,9 @@ app.post("/notifications", async (req, res) => {
 
     // Determine action based on type
     if (notificationMap[notification.Type]) {
-        await redisClient.rPush("notificationQueue", JSON.stringify(notification));
+        // Dynmically assign Queue based on type of notification.
+        const queueName = `${notification.Type}Queue`;
+        await redisClient.rPush(queueName, JSON.stringify(notification));
         console.log("Notification queued:", notification);
         status = "Queued";
     } else {

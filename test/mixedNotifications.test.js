@@ -9,7 +9,7 @@ async function sendNotification(type, id) {
   const body = {
     Type: type,
     Name: `${type} Notification ${id}`,
-    Description: `This is a ${type} notification ${id}`,
+    Description: `[mixedNotifications] This is a ${type} notification ${id}`,
   };
 
   const res = await fetch(url, {

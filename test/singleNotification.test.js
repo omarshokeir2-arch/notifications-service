@@ -12,7 +12,7 @@ test("send a single notification", async () => {
     body: JSON.stringify({
       Type: "Info",
       Name: "Test Notification",
-      Description: "This is a single test notification",
+      Description: "[singleNotification] This is a single test notification",
     }),
   });
   expect(res.status).toBe(200);
